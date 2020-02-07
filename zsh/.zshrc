@@ -5,6 +5,7 @@
 export ZSH="/home/jkmrto/.oh-my-zsh"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=/home/jkmrto/.cargo/bin:$PATH
+export PATH=/home/jkmrto/.local/bin:$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
