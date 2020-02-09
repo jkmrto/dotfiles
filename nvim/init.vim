@@ -2,12 +2,12 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'
-    Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'dense-analysis/ale'
-	Plug 'fatih/vim-go'
-	Plug 'tpope/vim-fugitive'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'dense-analysis/ale'
+   Plug 'fatih/vim-go'
+   Plug 'tpope/vim-fugitive'
+   Plug 'elixir-lang/vim-elixir'
 call plug#end()
 
 :tnoremap <Esc> <C-\><C-n>  "Use Exc to go out of terminal mode
@@ -44,10 +44,19 @@ let g:ale_sign_warning = '⚠'
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
 
-"Auto imports"
-let g:go_fmt_command = "goimports"
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 
 "Enabled gometalinter by default"
 let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'golint']}
+
+" Build Golang files on save.
+augroup auto_go
+    autocmd!
+    autocmd BufWritePost *.go :GoBuild
+augroup end
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'json': ['prettier'],
+\}
