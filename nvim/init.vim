@@ -8,6 +8,8 @@ call plug#begin('~/.vim/plugged')
    Plug 'fatih/vim-go'
    Plug 'tpope/vim-fugitive'
    Plug 'elixir-lang/vim-elixir'
+   Plug 'junegunn/fzf', { 'do': './install --all' }
+   Plug 'junegunn/fzf.vim'
 call plug#end()
 
 :tnoremap <Esc> <C-\><C-n>  "Use Exc to go out of terminal mode
@@ -60,3 +62,6 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['prettier'],
 \}
+
+"FZF
+nnoremap <C-p> :<C-u>FZF<CR>

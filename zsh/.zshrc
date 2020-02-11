@@ -6,6 +6,7 @@ export ZSH="/home/jkmrto/.oh-my-zsh"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=/home/jkmrto/.cargo/bin:$PATH
 export PATH=/home/jkmrto/.local/bin:$PATH
+export PATH=$PATH:/opt/fzf/bin
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,4 +106,8 @@ xset r rate 240 40
 
 . $HOME/.asdf/asdf.sh
 
-export PATH=$PATH:/snap/bin 
+export PATH=$PATH:/snap/bin
+
+# NeoVIM Config paths
+export VIMCONFIG=~/.config/nvim
+export VIMDATA=~/.local/share/nvim
