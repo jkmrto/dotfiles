@@ -10,9 +10,14 @@ call plug#begin('~/.vim/plugged')
    Plug 'elixir-lang/vim-elixir'
    Plug 'junegunn/fzf', { 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
+   Plug 'mhinz/vim-startify'
+   Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 :tnoremap <Esc> <C-\><C-n>  "Use Exc to go out of terminal mode
+
+"FZF
+nnoremap <C-p> :<C-u>FZF<CR>
 
 :set number
 
@@ -50,7 +55,10 @@ let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 
 "Enabled gometalinter by default"
-let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'golint']}
+let g:ale_linters = {
+\	'go': ['gometalinter', 'gofmt', 'golint'],
+\	'elixir': ['elixir-ls'],
+\}
 
 " Build Golang files on save.
 augroup auto_go
@@ -61,7 +69,8 @@ augroup end
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['prettier'],
+\   'elixir': ['mix_format'],
 \}
 
-"FZF
-nnoremap <C-p> :<C-u>FZF<CR>
+"" TODO: THis has to be modified to a valid path of elixir-ls/rel
+let g:ale_elixir_elixir_ls_release = '/Users/JuanM/Projects/linters/elixir-ls/rel'
