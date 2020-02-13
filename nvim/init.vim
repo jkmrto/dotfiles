@@ -5,16 +5,22 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
    Plug 'dense-analysis/ale'
-   Plug 'fatih/vim-go'
    Plug 'tpope/vim-fugitive'
-   Plug 'elixir-lang/vim-elixir'
    Plug 'junegunn/fzf', { 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
    Plug 'mhinz/vim-startify'
+   Plug 'tpope/vim-surround'
    Plug 'elixir-editors/vim-elixir'
+   Plug 'fatih/vim-go'
 call plug#end()
 
-:tnoremap <Esc> <C-\><C-n>  "Use Exc to go out of terminal mode
+"Avoiding using arrows
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+:tnoremap <Esc> <C-\><C-n>  "Use Esc to go out of terminal mode
 
 "FZF
 nnoremap <C-p> :<C-u>FZF<CR>
@@ -39,7 +45,8 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 
 "Highligh variables with the same name"
-let g:go_auto_sameids = 1
+"Seems to be broken: Wait until merged: https://github.com/fatih/vim-go/issues/2710
+"let g:go_auto_sameids = 1
 
 "Auto import dependencies"
 let g:go_fmt_command = "goimports"
@@ -73,4 +80,10 @@ let g:ale_fixers = {
 \}
 
 "" TODO: THis has to be modified to a valid path of elixir-ls/rel
-let g:ale_elixir_elixir_ls_release = '/Users/JuanM/Projects/linters/elixir-ls/rel'
+"//www.mitchellhanberg.com/post/2018/10/18/how-to-use-elixir-ls-with-vim/ $ export VIMCONFIG=~/.config/nvim
+let g:ale_elixir_elixir_ls_release = '/opt/elixir-ls/rel'
+
+
+" Trying the leader keyboard
+noremap <Leader>n nzz
+noremap <Leader>N Nzz
