@@ -5,9 +5,11 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle command-not-found
+antigen bundle autojump
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 
 # Load the theme.
 antigen theme robbyrussell
@@ -28,3 +30,10 @@ export PATH=$PATH:/opt/fzf/bin
 
 # Enabling ZFZ for CTRL+R lookup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Bindkeys for autosuggest plugin
+bindkey '^a' autosuggest-accept
+bindkey '^e' autosuggest-execute
+
+[[ -s /home/jkmrto/.autojump/etc/profile.d/autojump.sh ]] && source /home/jkmrto/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
