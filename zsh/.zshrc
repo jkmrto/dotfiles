@@ -1,4 +1,4 @@
-source /opt/antigen.zsh
+source ~/.zsh/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -35,5 +35,9 @@ export PATH=$PATH:/opt/fzf/bin
 bindkey '^a' autosuggest-accept
 bindkey '^e' autosuggest-execute
 
-[[ -s /home/jkmrto/.autojump/etc/profile.d/autojump.sh ]] && source /home/jkmrto/.autojump/etc/profile.d/autojump.sh
+# Autojump configuration
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
 autoload -U compinit && compinit -u
+
+# Load local configuration
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
