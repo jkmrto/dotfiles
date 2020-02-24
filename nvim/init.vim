@@ -12,6 +12,9 @@ call plug#begin('~/.vim/plugged')
    Plug 'tpope/vim-surround'
    Plug 'elixir-editors/vim-elixir'
    Plug 'fatih/vim-go'
+   Plug 'flazz/vim-colorschemes'
+   Plug 'mrk21/yaml-vim'
+   Plug 'jamshedvesuna/vim-markdown-preview'
 call plug#end()
 
 "Avoiding using arrows
@@ -65,13 +68,16 @@ let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \	'go': ['gometalinter', 'gofmt', 'golint'],
 \	'elixir': ['elixir-ls'],
+\	'Dockerfile': ['hadolint'],
+\	'yml': ['prettier']
 \}
 
 " Build Golang files on save.
-augroup auto_go
-    autocmd!
-    autocmd BufWritePost *.go :GoBuild
-augroup end
+" This is not neede since Ale is working well
+" augroup auto_go
+"     autocmd!
+"     autocmd BufWritePost *.go :GoBuild
+" augroup end
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -83,7 +89,13 @@ let g:ale_fixers = {
 "//www.mitchellhanberg.com/post/2018/10/18/how-to-use-elixir-ls-with-vim/ $ export VIMCONFIG=~/.config/nvim
 let g:ale_elixir_elixir_ls_release = '/opt/elixir-ls/rel'
 
-
 " Trying the leader keyboard
 noremap <Leader>n nzz
 noremap <Leader>N Nzz
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Ali: to indent json files on save
+""autocmd FileType json autocmd BufWritePre <buffer> :%!jq .
