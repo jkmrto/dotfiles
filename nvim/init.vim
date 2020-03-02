@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'flazz/vim-colorschemes'
    Plug 'mrk21/yaml-vim'
    Plug 'jamshedvesuna/vim-markdown-preview'
+   Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 "Avoiding using arrows
@@ -61,12 +62,15 @@ let g:ale_sign_warning = '⚠'
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
 
+" ALE configuration:
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+let g:ale_open_list = 1
 
-"Enabled gometalinter by default"
+" Avoid golint and go vet by default to avoid style warnings
+"'go': ['go build', 'gofmt', 'golint', 'go vet'],
 let g:ale_linters = {
-\	'go': ['gometalinter', 'gofmt', 'golint'],
+\	'go': ['go build', 'gofmt'],
 \	'elixir': ['elixir-ls'],
 \	'Dockerfile': ['hadolint'],
 \	'yml': ['prettier']
@@ -82,6 +86,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'json': ['prettier'],
+\   'yaml': ['prettier'],
+\   'yml': ['prettier'],
 \   'elixir': ['mix_format'],
 \}
 
@@ -99,3 +105,6 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Ali: to indent json files on save
 ""autocmd FileType json autocmd BufWritePre <buffer> :%!jq .
+
+"https://github.com/JamshedVesuna/vim-markdown-preview#requirements
+let vim_markdown_preview_github=1
