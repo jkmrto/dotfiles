@@ -25,13 +25,24 @@ call plug#begin('~/.vim/plugged')
    Plug 'airblade/vim-gitgutter'
 call plug#end()
 
-"Avoiding using arrows
+"Avoid using arrows
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-:tnoremap <Esc> <C-\><C-n>  "Use Esc to go out of terminal mode
+"Modify split behaviour
+set splitbelow
+set splitright
+
+" Allow navigation on one key stroke
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"Use Esc to go out of terminal mode
+:tnoremap <Esc> <C-\><C-n>
 
 "FZF
 nnoremap <C-p> :<C-u>FZF<CR>
@@ -102,10 +113,6 @@ let g:ale_fixers = {
 "" TODO: THis has to be modified to a valid path of elixir-ls/rel
 "//www.mitchellhanberg.com/post/2018/10/18/how-to-use-elixir-ls-with-vim/ $ export VIMCONFIG=~/.config/nvim
 let g:ale_elixir_elixir_ls_release = '/opt/elixir-ls/rel'
-
-" Trying the leader keyboard
-noremap <Leader>n nzz
-noremap <Leader>N Nzz
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
