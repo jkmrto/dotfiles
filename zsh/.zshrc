@@ -19,14 +19,13 @@ antigen apply
 
 # Custom export
 export PATH=$PATH:/usr/local/go/bin
-export PATH=/home/jkmrto/.cargo/bin:$PATH
-export PATH=/home/jkmrto/.local/bin:$PATH
 export PATH=$PATH:/opt/fzf/bin
+export PATH=$PATH:/usr/local/bin
 
 # ASDF initialization
 # https://asdf-vm.com/#/core-manage-asdf-vm
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+#. $HOME/.asdf/asdf.sh
+#. $HOME/.asdf/completions/asdf.bash
 
 # Enabling ZFZ for CTRL+R lookup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
