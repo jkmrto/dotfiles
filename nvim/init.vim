@@ -1,3 +1,10 @@
+" vim-plug autoinstall
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -28,6 +35,7 @@ noremap <Right> <Nop>
 "FZF
 nnoremap <C-p> :<C-u>FZF<CR>
 
+" Number on the left by default
 :set number
 
 "Go Setup"
@@ -99,3 +107,8 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Ali: to indent json files on save
 ""autocmd FileType json autocmd BufWritePre <buffer> :%!jq .
+
+" Load local Vim setup
+if filereadable("/Users/jkrmto-paack/.config/nvim/local.vim")
+	source /Users/jkrmto-paack/.config/nvim/local.vim
+endif
