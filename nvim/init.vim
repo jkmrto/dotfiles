@@ -25,6 +25,15 @@ call plug#begin('~/.vim/plugged')
    Plug 'airblade/vim-gitgutter'
 call plug#end()
 
+colorscheme gruvbox
+
+"Leader Configuartion
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+
+"Reduce update time based on vim-gitgutter readme
+set updatetime=100
+
 "Open nvim config file on current buffer
 nnoremap <Leader>v :e ~/.config/nvim/init.vim<CR>
 
@@ -72,13 +81,13 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
-let g:go_highlight_function_parameters = 1
+"let g:go_highlight_function_parameters = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_highlight_methods = 1
-let g:go_auto_sameids = 1
+"let g:go_auto_sameids = 1
 
 "Auto import dependencies"
 let g:go_fmt_command = "goimports"
@@ -97,8 +106,11 @@ let g:ale_set_signs = 1
 let g:airline#extensions#ale#enabled = 1
 
 let g:ale_completion_enabled = 1
-let g:ale_fix_on_save = 1
 let g:ale_open_list = 1
+
+" Execute linter and fixer only on save
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 
 "Use Quickfix list instead of Loclist
 let g:ale_set_quickfix = 1
@@ -124,7 +136,7 @@ let g:ale_fixers = {
 
 " TODO: THis has to be modified to a valid path of elixir-ls/rel
 "//www.mitchellhanberg.com/post/2018/10/18/how-to-use-elixir-ls-with-vim/ $ export VIMCONFIG=~/.config/nvim
-let g:ale_elixir_elixir_ls_release = '/opt/elixir-ls/rel'
+let g:ale_elixir_elixir_ls_release = expand('$HOME/opt/elixir-ls/rel')
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -133,6 +145,11 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Ali: to indent json files on save
 ""autocmd FileType json autocmd BufWritePre <buffer> :%!jq .
 
+" VimFugitive
+
+" Custom mapping
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiffsplit<CR>
 
 " Vim Markdown
 "
