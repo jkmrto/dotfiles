@@ -9,23 +9,26 @@ endif
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-   Plug 'vim-airline/vim-airline'
-   Plug 'vim-airline/vim-airline-themes'
+   Plug 'airblade/vim-gitgutter'
    Plug 'dense-analysis/ale'
-   Plug 'tpope/vim-fugitive'
-   Plug 'junegunn/fzf', { 'do': './install --all' }
-   Plug 'junegunn/fzf.vim'
-   Plug 'mhinz/vim-startify'
-   Plug 'tpope/vim-surround'
    Plug 'elixir-editors/vim-elixir'
    Plug 'fatih/vim-go'
    Plug 'flazz/vim-colorschemes'
-   Plug 'mrk21/yaml-vim'
    Plug 'jamshedvesuna/vim-markdown-preview'
-   Plug 'airblade/vim-gitgutter'
+   Plug 'junegunn/fzf', { 'do': './install --all' }
+   Plug 'junegunn/fzf.vim'
+   Plug 'mhinz/vim-startify'
+   Plug 'mrk21/yaml-vim'
+   Plug 'tpope/vim-fugitive'
+   Plug 'tpope/vim-surround'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'ElmCast/elm-vim'
 call plug#end()
 
 colorscheme gruvbox
+
+noremap <leader>ag :Ag <C-r>=expand('<cword>')<CR><CR>
 
 "Leader Configuartion
 nnoremap <SPACE> <Nop>
@@ -36,6 +39,10 @@ set updatetime=100
 
 "Open nvim config file on current buffer
 nnoremap <Leader>v :e ~/.config/nvim/init.vim<CR>
+
+" Quick fix mapping
+nnoremap <Leader>n :cnext<CR>
+nnoremap <Leader>b :cprevious<CR>
 
 "Avoid using arrows
 noremap <Up> <Nop>
@@ -91,7 +98,11 @@ let g:go_highlight_methods = 1
 
 "Auto import dependencies"
 let g:go_fmt_command = "goimports"
-
+"Use this option to auto |:GoFmt| on save
+let g:go_fmt_autosave = 1
+"Disable showing a location list when |'g:go_fmt_command'| fails
+"ALE is in charge of getting the errors on save.
+let g:go_fmt_fail_silently = 1
 
 " ALE configuration
 
@@ -112,30 +123,29 @@ let g:ale_open_list = 1
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
-"Use Quickfix list instead of Loclist
+"Use Quickfix list instead of Locactionlist
 let g:ale_set_quickfix = 1
 let g:ale_set_loclist = 0
 
 " Avoid golint and go vet by default to avoid style warnings
 "'go': ['go build', 'gofmt', 'golint', 'go vet'],
 let g:ale_linters = {
-\	'go': ['go build', 'go vet', 'golint'],
-\	'elixir': ['elixir-ls'],
 \	'Dockerfile': ['hadolint'],
-\	'yml': ['yamllint'],
+\	'elixir': ['elixir-ls'],
+\	'elm': ['elm_ls'],
+\	'go': ['go build', 'go vet', 'golint'],
 \	'yaml': ['yamllint'],
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'elixir': ['mix_format'],
+\   'elm': ['elm-format'],
 \   'json': ['prettier'],
 \   'yaml': ['prettier'],
-\   'yml': ['prettier'],
-\   'elixir': ['mix_format'],
 \}
 
-" TODO: THis has to be modified to a valid path of elixir-ls/rel
-"//www.mitchellhanberg.com/post/2018/10/18/how-to-use-elixir-ls-with-vim/ $ export VIMCONFIG=~/.config/nvim
+" Path to elixir_ls
 let g:ale_elixir_elixir_ls_release = expand('$HOME/opt/elixir-ls/rel')
 
 " add yaml stuffs
