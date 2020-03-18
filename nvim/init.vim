@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
    Plug 'ElmCast/elm-vim'
+   Plug 'jparise/vim-graphql'
 call plug#end()
 
 colorscheme gruvbox
@@ -106,7 +107,7 @@ let g:go_fmt_fail_silently = 1
 
 " ALE configuration
 
-nnoremap <Leader>a :ALEToggle<CR>
+nnoremap <Leader>aa :ALEToggle<CR>
 
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
@@ -135,12 +136,14 @@ let g:ale_linters = {
 \	'elm': ['elm_ls'],
 \	'go': ['go build', 'go vet', 'golint'],
 \	'yaml': ['yamllint'],
+\	'graphql': ['gqlint']
 \}
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'elixir': ['mix_format'],
 \   'elm': ['elm-format'],
+\   'graphql': ['prettier'],
 \   'json': ['prettier'],
 \   'yaml': ['prettier'],
 \}
