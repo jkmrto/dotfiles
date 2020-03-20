@@ -1,4 +1,4 @@
-install: dev-tools zsh-tools
+install: dev-tools zsh-tools vim-tools
 
 dev-tools: elixir-ls elm-ls graphql
 
@@ -21,3 +21,7 @@ graphql:
 autojump:
 	(cd; git clone git://github.com/wting/autojump.git)
 	(cd ~/autojump; ./install.py)
+
+# https://github.com/joeyespo/grip
+grip:
+	sudo pip3 install grip

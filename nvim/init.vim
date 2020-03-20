@@ -65,7 +65,7 @@ nnoremap <C-H> <C-W><C-H>
 :tnoremap <Esc> <C-\><C-n>
 
 "FZF
-nnoremap <C-p> :<C-u>FZF<CR>
+nnoremap <leader>p :<C-u>FZF<CR>
 
 " Number on the left by default
 :set number
@@ -135,8 +135,8 @@ let g:ale_linters = {
 \	'elixir': ['elixir-ls'],
 \	'elm': ['elm_ls'],
 \	'go': ['go build', 'go vet', 'golint'],
+\	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
-\	'graphql': ['gqlint']
 \}
 
 let g:ale_fixers = {
