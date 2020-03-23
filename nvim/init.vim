@@ -137,6 +137,7 @@ let g:ale_linters = {
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
+\	'graphql': ['gqlint']
 \}
 
 let g:ale_fixers = {

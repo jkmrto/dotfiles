@@ -1,5 +1,6 @@
 install: dev-tools zsh-tools vim-tools
 
+
 dev-tools: elixir-ls elm-ls graphql
 
 zsh-tools: autojump
@@ -25,3 +26,4 @@ autojump:
 # https://github.com/joeyespo/grip
 grip:
 	sudo pip3 install grip
+
