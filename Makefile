@@ -1,10 +1,16 @@
-install: dev-tools zsh-tools vim-tools
+OS = $(shell UNAME)
 
+install: dev-tools zsh-tools vim-tools go-tools hugo
 
 dev-tools: elixir-ls elm-ls graphql
 
 zsh-tools: autojump
 
+vim-tools: grip
+
+go-tools: gofumpt
+
+# THis is not needed anynmore
 elixir-ls:
 	mkdir -p ~/opt
 	cd ~/opt; if [ ! -d 'elixir-ls' ]; then git clone https://github.com/JakeBecker/elixir-ls.git; fi
@@ -26,4 +32,14 @@ autojump:
 # https://github.com/joeyespo/grip
 grip:
 	sudo pip3 install grip
+
+# Stricter format than gofmt
+# https://github.com/mvdan/gofumpt
+gofumpt:
+	cd $(mktemp -d); go mod init tmp; go get mvdan.cc/gofumpt/gofumports
+
+hugo:
+ifeq ($(OS), Darwin)
+	brew install hugo
+endif
 
