@@ -6,7 +6,4 @@ My personal dofiles
 
 The installation is not full but at least some of the tools will be installed.
 
-```
-make install
-```
-leader-p
+

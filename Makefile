@@ -1,10 +1,12 @@
 OS = $(shell UNAME)
 
-install: dev-tools zsh-tools vim-tools hugo
+install: dev-tools zsh-tools vim-tools go-tools hugo
 
 dev-tools: elixir-ls elm-ls graphql
 
 zsh-tools: autojump
+
+vim-tools: grip
 
 go-tools: gofumpt
 
@@ -40,3 +42,4 @@ hugo:
 ifeq ($(OS), Darwin)
 	brew install hugo
 endif
+

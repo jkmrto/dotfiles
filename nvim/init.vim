@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
    Plug 'ElmCast/elm-vim'
    Plug 'jparise/vim-graphql'
    Plug 'slashmili/alchemist.vim'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -154,6 +155,7 @@ let g:ale_linters = {
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
+\	'graphql': ['gqlint']
 \}
 
 let g:ale_fixers = {
