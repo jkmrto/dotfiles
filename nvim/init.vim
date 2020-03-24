@@ -25,21 +25,34 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-airline/vim-airline-themes'
    Plug 'ElmCast/elm-vim'
    Plug 'jparise/vim-graphql'
+   Plug 'slashmili/alchemist.vim'
 call plug#end()
 
 colorscheme gruvbox
 
-noremap <leader>ag :Ag <C-r>=expand('<cword>')<CR><CR>
+" Set :E as :Explore
+cabbrev E Explore
 
 "Leader Configuartion
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
+noremap <leader>ag :Ag <C-r>=expand('<cword>')<CR><CR>
+
+"Open nvim config file on current buffer
+imap <c-o> <c-x><c-o><c-p>
+
+"Navigate through vim configuration
+noremap <leader>vv :e ~/.config/nvim/init.vim<CR>
+noremap <leader>vs :source %<CR>
+
+noremap <leader>sv :vert split<CR>
+noremap <leader>ss :split<CR>
+noremap <leader>tt :term<CR>
+
 "Reduce update time based on vim-gitgutter readme
 set updatetime=100
 
-"Open nvim config file on current buffer
-nnoremap <Leader>v :e ~/.config/nvim/init.vim<CR>
 
 " Quick fix mapping
 nnoremap <Leader>n :cnext<CR>
@@ -82,7 +95,10 @@ au FileType go set tabstop=4
 " Map keys to GoDecls
 au FileType go nnoremap <buffer> <C-d> :GoDecls<cr>
 au FileType go nnoremap <buffer> <C-g> :GoDeclsDir<cr>
-au FileType go nnoremap <Leader>i :GoSameIdsToggle<CR>
+au FileType go nnoremap <leader>gd :GoDefType<cr>
+au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
+au FileType go nnoremap <Leader>ga :GoAlternate<CR>
+au FileType go nnoremap <Leader>gc :GoCoverageToggle<CR>
 
 "Hightlight everything"
 let g:go_highlight_build_constraints = 1
@@ -98,7 +114,7 @@ let g:go_highlight_methods = 1
 "let g:go_auto_sameids = 1
 
 "Auto import dependencies"
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = "gofumports"
 "Use this option to auto |:GoFmt| on save
 let g:go_fmt_autosave = 1
 "Disable showing a location list when |'g:go_fmt_command'| fails
@@ -108,6 +124,7 @@ let g:go_fmt_fail_silently = 1
 " ALE configuration
 
 nnoremap <Leader>aa :ALEToggle<CR>
+nnoremap <Leader>ad :ALEGoToDefinition<CR>
 
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
@@ -148,8 +165,25 @@ let g:ale_fixers = {
 \   'yaml': ['prettier'],
 \}
 
+function InstallElixirLs()
+	if isdirectory('.elixir_ls') | execute("!rm -rf .elixir_ls") | endif
+	execute("!git clone https://github.com/JakeBecker/elixir-ls.git .elixir_ls")
+	execute("!cd .elixir_ls; mix deps.get; mix compile")
+	execute("!cd .elixir_ls; mix elixir_ls.release -o rel")
+endfunction
+
+if filereadable("mix.exs")
+	echo "mix.exs found. Checking elixir_ls is available"
+	if !isdirectory('.elixir_ls')
+		echo "ElixirLs will be installed"
+		call InstallElixirLs()
+	else
+		echo "ElixirLs is available"
+	endif
+endif
+
 " Path to elixir_ls
-let g:ale_elixir_elixir_ls_release = expand('$HOME/opt/elixir-ls/rel')
+let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -160,10 +194,13 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " VimFugitive
 
-" Custom mapping
+" Custom VimFugitive mapping
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiffsplit<CR>
+nnoremap <Leader>gb :Gblame<CR>
 
+" Faster save
+nnoremap <Leader>w :w<CR>
 " Vim Markdown
 "
 " https://github.com/JamshedVesuna/vim-markdown-preview#requirements
