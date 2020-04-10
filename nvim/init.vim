@@ -11,7 +11,6 @@ endif
 call plug#begin('~/.vim/plugged')
    Plug 'airblade/vim-gitgutter'
    Plug 'dense-analysis/ale'
-   Plug 'elixir-editors/vim-elixir'
    Plug 'fatih/vim-go'
    Plug 'flazz/vim-colorschemes'
    Plug 'jamshedvesuna/vim-markdown-preview'
@@ -25,8 +24,14 @@ call plug#begin('~/.vim/plugged')
    Plug 'vim-airline/vim-airline-themes'
    Plug 'ElmCast/elm-vim'
    Plug 'jparise/vim-graphql'
-   Plug 'slashmili/alchemist.vim'
 
+   " Elixir
+   Plug 'slashmili/alchemist.vim'
+   Plug 'elixir-editors/vim-elixir'
+
+   " Typescript
+   Plug 'leafgarland/typescript-vim'
+   Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 colorscheme gruvbox
@@ -97,9 +102,11 @@ au FileType go set tabstop=4
 au FileType go nnoremap <buffer> <C-d> :GoDecls<cr>
 au FileType go nnoremap <buffer> <C-g> :GoDeclsDir<cr>
 au FileType go nnoremap <leader>gd :GoDefType<cr>
-au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
+"au FileType go nnoremap <Leader>gi :GoSameIdsToggle<CR>
+let g:go_auto_sameids = 0
 au FileType go nnoremap <Leader>ga :GoAlternate<CR>
 au FileType go nnoremap <Leader>gc :GoCoverageToggle<CR>
+au FileType go nnoremap <Leader>gr :GoRename<CR>
 
 "Hightlight everything"
 let g:go_highlight_build_constraints = 1
@@ -146,6 +153,10 @@ let g:ale_fix_on_save = 1
 let g:ale_set_quickfix = 1
 let g:ale_set_loclist = 0
 
+" Enable GoRename
+" https://github.com/fatih/vim-go/issues/2366
+let g:go_rename_command = 'gopls'
+
 " Avoid golint and go vet by default to avoid style warnings
 "'go': ['go build', 'gofmt', 'golint', 'go vet'],
 let g:ale_linters = {
@@ -155,8 +166,8 @@ let g:ale_linters = {
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
-\	'graphql': ['gqlint']
-\}
+\   	'typescript': ['tsserver'],
+\ }
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -164,8 +175,9 @@ let g:ale_fixers = {
 \   'elm': ['elm-format'],
 \   'graphql': ['prettier'],
 \   'json': ['prettier'],
+\   'typescript': ['prettier'],
 \   'yaml': ['prettier'],
-\}
+\ }
 
 function InstallElixirLs()
 	if isdirectory('.elixir_ls') | execute("!rm -rf .elixir_ls") | endif
@@ -197,9 +209,9 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " VimFugitive
 
 " Custom VimFugitive mapping
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gd :Gdiffsplit<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>is :Gstatus<CR>
+nnoremap <Leader>id :Gdiffsplit<CR>
+nnoremap <Leader>ib :Gblame<CR>
 
 " Faster save
 nnoremap <Leader>w :w<CR>
@@ -212,3 +224,9 @@ let vim_markdown_preview_github=1
 if filereadable("/Users/jkrmto-paack/.config/nvim/local.vim")
 	source /Users/jkrmto-paack/.config/nvim/local.vim
 endif
+
+" Custom tab for html
+au FileType html set noexpandtab
+au FileType html set shiftwidth=2
+au FileType html set softtabstop=2
+au FileType html set tabstop=2

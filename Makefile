@@ -6,7 +6,7 @@ dev-tools: elixir-ls elm-ls graphql
 
 zsh-tools: autojump
 
-vim-tools: grip
+vim-tools: grip htmlhint prettier
 
 go-tools: gofumpt
 
@@ -29,9 +29,16 @@ autojump:
 	(cd; git clone git://github.com/wting/autojump.git)
 	(cd ~/autojump; ./install.py)
 
+prettier:
+	npm install -g prettier
+
 # https://github.com/joeyespo/grip
 grip:
 	sudo pip3 install grip
+
+# html linter: https://github.com/htmlhint/HTMLHint
+htmlhint:
+	npm install -g htmlhint
 
 # Stricter format than gofmt
 # https://github.com/mvdan/gofumpt
@@ -42,4 +49,3 @@ hugo:
 ifeq ($(OS), Darwin)
 	brew install hugo
 endif
-
