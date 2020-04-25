@@ -6,9 +6,14 @@ dev-tools: elixir-ls elm-ls graphql
 
 zsh-tools: autojump
 
-vim-tools: grip htmlhint prettier
+vim-tools: grip htmlhint prettier eslint
 
 go-tools: gofumpt
+
+
+update:
+	rm -f ${HOME}/.config/nvim/init.vim
+	ln $(shell pwd)/nvim/init.vim  ${HOME}/.config/nvim/init.vim
 
 # THis is not needed anynmore
 elixir-ls:
@@ -44,6 +49,10 @@ htmlhint:
 # https://github.com/mvdan/gofumpt
 gofumpt:
 	cd $(mktemp -d); go mod init tmp; go get mvdan.cc/gofumpt/gofumports
+
+eslint:
+	npm install -g eslint
+	npm install -g eslint-config-prettier
 
 hugo:
 ifeq ($(OS), Darwin)

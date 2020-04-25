@@ -32,6 +32,10 @@ call plug#begin('~/.vim/plugged')
    " Typescript
    Plug 'leafgarland/typescript-vim'
    Plug 'peitalin/vim-jsx-typescript'
+
+   "Javascript
+   Plug 'pangloss/vim-javascript'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -129,10 +133,12 @@ let g:go_fmt_autosave = 1
 "ALE is in charge of getting the errors on save.
 let g:go_fmt_fail_silently = 1
 
+let g:go_build_tags  = "infra"
 " ALE configuration
 
 nnoremap <Leader>aa :ALEToggle<CR>
 nnoremap <Leader>ad :ALEGoToDefinition<CR>
+nnoremap <Leader>ai :ALEInfo<CR>
 
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
@@ -167,6 +173,7 @@ let g:ale_linters = {
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
 \   	'typescript': ['tsserver'],
+\   	 'javascript'  : ['eslint'],
 \ }
 
 let g:ale_fixers = {
@@ -177,6 +184,7 @@ let g:ale_fixers = {
 \   'json': ['prettier'],
 \   'typescript': ['prettier'],
 \   'yaml': ['prettier'],
+\   'javascript': ['prettier'],
 \ }
 
 function InstallElixirLs()
@@ -230,3 +238,9 @@ au FileType html set noexpandtab
 au FileType html set shiftwidth=2
 au FileType html set softtabstop=2
 au FileType html set tabstop=2
+
+" Typescripts maps:
+au FileType typescript.tsx nnoremap gd :ALEGoToDefinition<CR>
+
+augroup filetype javascript syntax=javascript
+autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
