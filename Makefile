@@ -10,6 +10,11 @@ vim-tools: grip htmlhint prettier eslint
 
 go-tools: gofumpt
 
+
+update:
+	rm -f ${HOME}/.config/nvim/init.vim
+	ln $(shell pwd)/nvim/init.vim  ${HOME}/.config/nvim/init.vim
+
 # THis is not needed anynmore
 elixir-ls:
 	mkdir -p ~/opt

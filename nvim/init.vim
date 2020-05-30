@@ -33,9 +33,9 @@ call plug#begin('~/.vim/plugged')
    Plug 'leafgarland/typescript-vim'
    Plug 'peitalin/vim-jsx-typescript'
 
-   " Javascript
-   Plug 'jelera/vim-javascript-syntax'
-   Plug 'maxmellon/vim-jsx-pretty'
+   "Javascript
+   Plug 'pangloss/vim-javascript'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -184,7 +184,7 @@ let g:ale_fixers = {
 \   'json': ['prettier'],
 \   'typescript': ['prettier'],
 \   'yaml': ['prettier'],
-\   'javascript'  : ['prettier'],
+\   'javascript': ['prettier'],
 \ }
 
 function InstallElixirLs()
