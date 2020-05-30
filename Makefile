@@ -10,9 +10,11 @@ vim-tools: grip htmlhint prettier eslint
 
 go-tools: gofumpt
 
+
+PWD := $(shell pwd)
 update:
 	rm -f ${HOME}/.config/nvim/init.vim
-	ln $(shell pwd)/nvim/init.vim  ${HOME}/.config/nvim/init.vim
+	ln ${PWD}/nvim/init.vim  ${HOME}/.config/nvim/init.vim
 
 # Export local config as dotfile, and linkit
 link-from-local:
