@@ -244,3 +244,9 @@ au FileType typescript.tsx nnoremap gd :ALEGoToDefinition<CR>
 
 augroup filetype javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
+
+let vim_markdown_preview_github=1
+let vim_markdown_preview_use_xdg_open=1
+let vim_markdown_preview_browser='Mozilla Firefox'
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_toggle=3
