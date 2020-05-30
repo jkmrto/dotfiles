@@ -126,7 +126,13 @@ let g:go_highlight_methods = 1
 "let g:go_auto_sameids = 1
 
 "Auto import dependencies"
+"let g:go_fmt_command = "gofmt"
 let g:go_fmt_command = "gofumports"
+
+let g:go_fmt_options = {
+    \ 'gofmt': '-s',
+    \ }
+
 "Use this option to auto |:GoFmt| on save
 let g:go_fmt_autosave = 1
 "Disable showing a location list when |'g:go_fmt_command'| fails
@@ -167,7 +173,7 @@ let g:go_rename_command = 'gopls'
 "'go': ['go build', 'gofmt', 'golint', 'go vet'],
 let g:ale_linters = {
 \	'Dockerfile': ['hadolint'],
-\	'elixir': ['elixir-ls'],
+\	'elixir': ['elixir-ls', 'mix compile'],
 \	'elm': ['elm_ls'],
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
@@ -176,6 +182,8 @@ let g:ale_linters = {
 \   	 'javascript'  : ['eslint'],
 \ }
 
+
+"\   'yaml': ['prettier'],
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'elixir': ['mix_format'],
@@ -183,7 +191,6 @@ let g:ale_fixers = {
 \   'graphql': ['prettier'],
 \   'json': ['prettier'],
 \   'typescript': ['prettier'],
-\   'yaml': ['prettier'],
 \   'javascript': ['prettier'],
 \ }
 

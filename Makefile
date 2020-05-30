@@ -1,6 +1,6 @@
 OS = $(shell UNAME)
 
-install: dev-tools zsh-tools vim-tools go-tools hugo
+install: zsh-tools vim-tools go-tools hugo
 
 dev-tools: elixir-ls elm-ls graphql
 
@@ -10,10 +10,16 @@ vim-tools: grip htmlhint prettier eslint
 
 go-tools: gofumpt
 
-
 update:
 	rm -f ${HOME}/.config/nvim/init.vim
 	ln $(shell pwd)/nvim/init.vim  ${HOME}/.config/nvim/init.vim
+
+# Export local config as dotfile, and linkit
+link-from-local:
+	rm -f zsh/.zshrc;
+	cp ${HOME}/.zshrc zsh/.zshrc
+	rm -f ${HOME}/.zshrc;
+	ln -s zsh/.zshrc ${HOME}/.zshrc
 
 # THis is not needed anynmore
 elixir-ls:
