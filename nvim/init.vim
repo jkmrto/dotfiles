@@ -36,6 +36,9 @@ call plug#begin('~/.vim/plugged')
    "Javascript
    Plug 'pangloss/vim-javascript'
 
+
+   Plug 'vim-ruby/vim-ruby'
+   Plug 'tpope/vim-rails'
 call plug#end()
 
 colorscheme gruvbox
@@ -126,8 +129,8 @@ let g:go_highlight_methods = 1
 "let g:go_auto_sameids = 1
 
 "Auto import dependencies"
-"let g:go_fmt_command = "gofmt"
-let g:go_fmt_command = "gofumports"
+let g:go_fmt_command = "gofmt"
+"let g:go_fmt_command = "gofumports"
 
 let g:go_fmt_options = {
     \ 'gofmt': '-s',
@@ -179,17 +182,17 @@ let g:ale_linters = {
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
 \   	'typescript': ['tsserver'],
-\   	 'javascript'  : ['eslint'],
+\   	'javascript'  : ['eslint'],
+\       'ruby': ['solargraph'],
 \ }
 
-
+"\   'json': ['prettier'],
 "\   'yaml': ['prettier'],
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'elixir': ['mix_format'],
 \   'elm': ['elm-format'],
 \   'graphql': ['prettier'],
-\   'json': ['prettier'],
 \   'typescript': ['prettier'],
 \   'javascript': ['prettier'],
 \ }
@@ -249,6 +252,9 @@ au FileType html set tabstop=2
 " Typescripts maps:
 au FileType typescript.tsx nnoremap gd :ALEGoToDefinition<CR>
 
+" Typescripts maps:
+au FileType elixir nnoremap gd :ALEGoToDefinition<CR>
+
 augroup filetype javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
 
@@ -257,3 +263,20 @@ let vim_markdown_preview_use_xdg_open=1
 let vim_markdown_preview_browser='Mozilla Firefox'
 let vim_markdown_preview_hotkey='<C-m>'
 let vim_markdown_preview_toggle=3
+
+"deoplete
+"let g:deoplete#enable_at_startup = 1
+
+"ruby autocomplete
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+    \ }
