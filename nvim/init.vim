@@ -9,11 +9,12 @@ endif
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+   Plug 'rhysd/vim-grammarous'
    Plug 'airblade/vim-gitgutter'
    Plug 'dense-analysis/ale'
    Plug 'fatih/vim-go'
    Plug 'flazz/vim-colorschemes'
-   Plug 'jamshedvesuna/vim-markdown-preview'
+"   Plug 'jamshedvesuna/vim-markdown-preview'
    Plug 'junegunn/fzf', { 'do': './install --all' }
    Plug 'junegunn/fzf.vim'
    Plug 'mhinz/vim-startify'
@@ -158,12 +159,21 @@ let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
 
 " Execute linter and fixer only on save
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
+
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+let g:ale_linters_explicit = 1
 
 "Use Quickfix list instead of Locactionlist
 let g:ale_set_quickfix = 1
 let g:ale_set_loclist = 0
+
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
 
 " Enable GoRename
 " https://github.com/fatih/vim-go/issues/2366
@@ -173,7 +183,6 @@ let g:go_rename_command = 'gopls'
 "'go': ['go build', 'gofmt', 'golint', 'go vet'],
 let g:ale_linters = {
 \	'Dockerfile': ['hadolint'],
-\	'elixir': ['elixir-ls', 'mix compile'],
 \	'elm': ['elm_ls'],
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
@@ -186,7 +195,6 @@ let g:ale_linters = {
 "\   'yaml': ['prettier'],
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'elixir': ['mix_format'],
 \   'elm': ['elm-format'],
 \   'graphql': ['prettier'],
 \   'json': ['prettier'],
@@ -194,6 +202,10 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \ }
 
+
+" Elixir
+
+" Elixir-ls linter setup
 function InstallElixirLs()
 	if isdirectory('.elixir_ls') | execute("!rm -rf .elixir_ls") | endif
 	execute("!git clone https://github.com/JakeBecker/elixir-ls.git .elixir_ls")
@@ -211,8 +223,12 @@ if filereadable("mix.exs")
 	endif
 endif
 
-" Path to elixir_ls
+" Elixir ALE setup
+let g:ale_linters.elixir = ['elixir-ls' ]
+let g:ale_fixers.elixir = [ 'mix_format' ]
 let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
+let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+autocmd FileType elixir,eelixir nnoremap gd :ALEGoToDefinition<CR>
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -233,7 +249,7 @@ nnoremap <Leader>w :w<CR>
 " Vim Markdown
 "
 " https://github.com/JamshedVesuna/vim-markdown-preview#requirements
-let vim_markdown_preview_github=1
+"let vim_markdown_preview_github=1
 
 " Load local Vim setup
 if filereadable("/Users/jkrmto-paack/.config/nvim/local.vim")
@@ -252,8 +268,8 @@ au FileType typescript.tsx nnoremap gd :ALEGoToDefinition<CR>
 augroup filetype javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
 
-let vim_markdown_preview_github=1
-let vim_markdown_preview_use_xdg_open=1
-let vim_markdown_preview_browser='Mozilla Firefox'
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_toggle=3
+"let vim_markdown_preview_github=1
+" let vim_markdown_preview_use_xdg_open=1
+" let vim_markdown_preview_browser='Mozilla Firefox'
+" let vim_markdown_preview_hotkey='<C-m>'
+ "let vim_markdown_preview_toggle=3
