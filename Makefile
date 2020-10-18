@@ -16,6 +16,11 @@ update:
 	rm -f ${HOME}/.config/nvim/init.vim
 	ln ${PWD}/nvim/init.vim  ${HOME}/.config/nvim/init.vim
 
+	rm -f ${HOME}/.zshrc
+	ln ${PWD}/zsh/.zshrc  ${HOME}/.zshrc
+
+
+
 # Export local config as dotfile, and linkit
 link-from-local:
 	rm -f zsh/.zshrc;
