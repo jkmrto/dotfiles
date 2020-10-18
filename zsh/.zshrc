@@ -28,6 +28,9 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/opt/fzf/bin
 export PATH=$PATH:/usr/local/bin
 
+# Enable iex history
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # ASDF initialization
 # https://asdf-vm.com/#/core-manage-asdf-vm
 
