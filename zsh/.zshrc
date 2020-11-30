@@ -57,5 +57,9 @@ function dlogs {
 	docker logs $CONTAINER
  }
 
+function gck {
+	git checkout $(git branch | peco)
+}
+
 # Load local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
