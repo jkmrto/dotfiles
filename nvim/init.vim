@@ -50,6 +50,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'derekwyatt/vim-scala'
 
+	" Go to repository line
+	Plug 'ruanyl/vim-gh-line'
+
    "python
 	Plug 'vim-python/python-syntax'
 call plug#end()
@@ -148,7 +151,7 @@ let g:go_highlight_methods = 1
 "let g:go_auto_sameids = 1
 
 "Auto import dependencies"
-"let g:go_fmt_command = "gofmt"
+"let g:go_fmt_command = "goimports"
 let g:go_fmt_command = "gofumports"
 
 let g:go_fmt_options = {
@@ -161,7 +164,7 @@ let g:go_fmt_autosave = 1
 "ALE is in charge of getting the errors on save.
 let g:go_fmt_fail_silently = 1
 
-let g:go_build_tags  = "infra"
+let g:go_build_tags  = "infra rabbit"
 " ALE configuration
 
 nnoremap <Leader>aa :ALEToggle<CR>
@@ -210,8 +213,8 @@ let g:ale_linters = {
 \	'yaml': ['yamllint'],
 \ 'typescript': ['tsserver'],
 \ 'javascript'  : ['eslint'],
+\ 'json': ['prettier'],
 \ }
-
 
 "\   'yaml': ['prettier'],
 let g:ale_fixers = {

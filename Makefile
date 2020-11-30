@@ -19,14 +19,20 @@ update:
 	rm -f ${HOME}/.zshrc
 	ln ${PWD}/zsh/.zshrc  ${HOME}/.zshrc
 
-
-
 # Export local config as dotfile, and linkit
-link-from-local:
+link-from-local: link-from-local-zsh link-from-local-vim
+
+link-from-local-zsh:
 	rm -f zsh/.zshrc;
 	cp ${HOME}/.zshrc zsh/.zshrc
 	rm -f ${HOME}/.zshrc;
 	ln -s zsh/.zshrc ${HOME}/.zshrc
+
+link-from-local-vim:
+	rm -f nvim/init.vim
+	cp  ~/.config/nvim/init.vim ${PWD}/nvim/init.vim
+	rm -f ~/.config/nvim/init.vim;
+	ln -s ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
 
 # THis is not needed anynmore
 elixir-ls:

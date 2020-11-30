@@ -66,3 +66,6 @@ function gck {
 
 # Java home for asdf
 . ~/.asdf/plugins/java/set-java-home.zsh
+
+# Rust installation
+export PATH=$PATH:$HOME/.cargo/bin
