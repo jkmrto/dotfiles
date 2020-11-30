@@ -45,6 +45,9 @@ call plug#begin('~/.vim/plugged')
   "scala
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'derekwyatt/vim-scala'
+
+   "python
+	Plug 'vim-python/python-syntax'
 call plug#end()
 
 " Setup for vim files"
@@ -221,7 +224,11 @@ let g:ale_fixers = {
 " Java linter
 let g:ale_linters.java = ["javalsp"]
 
-" Elixir
+" Python setup
+let g:ale_linters.python = ['pyls', 'flake8']
+let g:ale_fixers.python = ['autopep8', 'isort', 'remove_trailing_lines', 'trim_whitespace', 'yapf']
+let g:ale_virtualenv_dir_names = ['venv']
+au FileType python nnoremap gd :ALEGoToDefinition<CR>
 
 " Elixir-ls linter setup
 function InstallElixirLs()
