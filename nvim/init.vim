@@ -42,6 +42,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
 
+  "Ruby
+  Plug 'vim-ruby/vim-ruby'
+  Plug 'tpope/vim-rails'
+
   "scala
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'derekwyatt/vim-scala'
