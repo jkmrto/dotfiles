@@ -42,6 +42,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
 
+  "scala
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'derekwyatt/vim-scala'
 call plug#end()
 
 " Setup for vim files"
@@ -215,6 +218,8 @@ let g:ale_fixers = {
 \ 'rust': ['rustfmt'],
 \ }
 
+" Java linter
+let g:ale_linters.java = ["javalsp"]
 
 " Elixir
 

@@ -63,3 +63,6 @@ function gck {
 
 # Load local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Java home for asdf
+. ~/.asdf/plugins/java/set-java-home.zsh
