@@ -9,35 +9,46 @@ endif
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-   Plug 'rhysd/vim-grammarous'
-   Plug 'airblade/vim-gitgutter'
-   Plug 'dense-analysis/ale'
-   Plug 'fatih/vim-go'
-   Plug 'flazz/vim-colorschemes'
-"   Plug 'jamshedvesuna/vim-markdown-preview'
-   Plug 'junegunn/fzf', { 'do': './install --all' }
-   Plug 'junegunn/fzf.vim'
-   Plug 'mhinz/vim-startify'
-   Plug 'mrk21/yaml-vim'
-   Plug 'tpope/vim-fugitive'
-   Plug 'tpope/vim-surround'
-   Plug 'vim-airline/vim-airline'
-   Plug 'vim-airline/vim-airline-themes'
-   Plug 'ElmCast/elm-vim'
-   Plug 'jparise/vim-graphql'
+  Plug 'airblade/vim-gitgutter'
+	Plug 'dense-analysis/ale'
 
-   " Elixir
-   Plug 'slashmili/alchemist.vim'
-   Plug 'elixir-editors/vim-elixir'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'jamshedvesuna/vim-markdown-preview'
+  Plug 'junegunn/fzf', { 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'mhinz/vim-startify'
+  Plug 'mrk21/yaml-vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-surround'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'ElmCast/elm-vim'
+  Plug 'jparise/vim-graphql'
+  Plug 'gisphm/vim-gitignore'
 
-   " Typescript
-   Plug 'leafgarland/typescript-vim'
-   Plug 'peitalin/vim-jsx-typescript'
+	"Go
+	Plug 'fatih/vim-go', {  'tag': 'v1.22', 'do': ':GoUpdateBinaries' }
+  "Plug 'fatih/vim-go'
 
-   "Javascript
-   Plug 'pangloss/vim-javascript'
+  " Elixir
+  Plug 'slashmili/alchemist.vim'
+  Plug 'elixir-editors/vim-elixir'
+
+  " Typescript
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+
+  "Javascript
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
 
 call plug#end()
+
+" Setup for vim files"
+au FileType vim set noexpandtab
+au FileType vim set shiftwidth=2
+au FileType vim set softtabstop=2
+au FileType vim set tabstop=2
 
 colorscheme gruvbox
 
@@ -187,19 +198,21 @@ let g:ale_linters = {
 \	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
-\   	'typescript': ['tsserver'],
-\   	 'javascript'  : ['eslint'],
+\ 'typescript': ['tsserver'],
+\ 'javascript'  : ['eslint'],
 \ }
 
 
 "\   'yaml': ['prettier'],
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'elm': ['elm-format'],
-\   'graphql': ['prettier'],
-\   'json': ['prettier'],
-\   'typescript': ['prettier'],
-\   'javascript': ['prettier'],
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ 'elixir': ['mix_format'],
+\ 'elm': ['elm-format'],
+\ 'graphql': ['prettier'],
+\ 'typescript': ['prettier'],
+\ 'json': ['prettier'],
+\ 'javascript': ['prettier'],
+\ 'rust': ['rustfmt'],
 \ }
 
 
