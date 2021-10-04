@@ -47,7 +47,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-rails'
 
   "scala
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'derekwyatt/vim-scala'
 
 	" Go to repository line
@@ -55,7 +54,27 @@ call plug#begin('~/.vim/plugged')
 
    "python
 	Plug 'vim-python/python-syntax'
+
+	" Setup for nvim 0.5.0
+	Plug 'neovim/nvim-lspconfig'
+	"Plug 'nvim-lua/completion-nvim'
+
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'folke/trouble.nvim'
 call plug#end()
+
+
+"on_attach=require'completion'.on_attach,
+lua << EOF
+require'lspconfig'.elixirls.setup{
+	cmd = { ".elixir_ls/rel/language_server.sh" },
+  settings = {
+     elixirLS = {
+       dialyzerEnabled = false;
+     }
+   }
+}
+EOF
 
 " Setup for vim files"
 au FileType vim set noexpandtab
@@ -103,11 +122,6 @@ noremap <Right> <Nop>
 set splitbelow
 set splitright
 
-" Allow navigation on one key stroke
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 "Use Esc to go out of terminal mode
 :tnoremap <Esc> <C-\><C-n>
@@ -117,6 +131,12 @@ nnoremap <leader>p :<C-u>FZF<CR>
 
 " Number on the left by default
 :set number
+
+" tab width of 4"
+au FileType javascript set noexpandtab
+au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=2
+au FileType javascript set tabstop=2
 
 
 "VIM-Go Setup"
@@ -179,7 +199,7 @@ let g:ale_set_signs = 1
 " Enable integration with airline.
 let g:airline#extensions#ale#enabled = 1
 
-let g:ale_completion_enabled = 1
+"let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
 
 " Execute linter and fixer only on save
@@ -216,17 +236,19 @@ let g:ale_linters = {
 \ 'json': ['prettier'],
 \ }
 
-"\   'yaml': ['prettier'],
 let g:ale_fixers = {
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-\ 'elixir': ['mix_format'],
 \ 'elm': ['elm-format'],
 \ 'graphql': ['prettier'],
 \ 'typescript': ['prettier'],
 \ 'json': ['prettier'],
+\ 'jsx': ['prettier'],
 \ 'javascript': ['prettier'],
 \ 'rust': ['rustfmt'],
 \ }
+
+"\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \ 'html': ['html-beautify'],
+
 
 " Java linter
 let g:ale_linters.java = ["javalsp"]
@@ -255,12 +277,15 @@ if filereadable("mix.exs")
 	endif
 endif
 
+" Commented to try out the lsp integrated
 " Elixir ALE setup
-let g:ale_linters.elixir = ['elixir-ls' ]
-let g:ale_fixers.elixir = [ 'mix_format' ]
-let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
-let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
-autocmd FileType elixir,eelixir nnoremap gd :ALEGoToDefinition<CR>
+" let g:ale_linters.elixir = ['elixir-ls' ]
+let g:ale_linters.elixir = []
+" let g:ale_fixers.elixir = [ 'mix_format' ]
+" let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
+" let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
+"autocmd FileType elixir,eelixir nnoremap gd :ALEGoToDefinition<CR>
+"autocmd FileType elixir nnoremap <leader>ah :ALEHover<CR>
 
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -274,7 +299,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Custom VimFugitive mapping
 nnoremap <Leader>is :Gstatus<CR>
 nnoremap <Leader>id :Gdiffsplit<CR>
-nnoremap <Leader>ib :Gblame<CR>
+nnoremap <Leader>ib :Git blame<CR>
 
 " Faster save
 nnoremap <Leader>w :w<CR>
@@ -300,8 +325,37 @@ au FileType typescript.tsx nnoremap gd :ALEGoToDefinition<CR>
 augroup filetype javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
 
-"let vim_markdown_preview_github=1
-" let vim_markdown_preview_use_xdg_open=1
-" let vim_markdown_preview_browser='Mozilla Firefox'
-" let vim_markdown_preview_hotkey='<C-m>'
- "let vim_markdown_preview_toggle=3
+nmap <silent> gd <Plug>(coc-definition)
+
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_italic_comment = 0
+
+set completeopt+=noinsert
+
+
+lua << EOF
+local on_attach = function(client, bufnr)
+buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+
+end
+EOF
+
+nnoremap <silent>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>f <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>
+nnoremap <leader>c <cmd>lua vim.lsp.buf.completion()<CR>
+
+
+au FileType eelixir nnoremap <leader>f :silent %!prettier --print-width=120 --stdin-filepath --html-whitespace-sensitivity=strict %<CR>
+
+
+" Trouble keybindings
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>

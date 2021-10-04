@@ -46,26 +46,33 @@ bindkey '^e' autosuggest-execute
 autoload -U compinit && compinit -u
 
 function klogs {
-	local POD=$(kubectl get pods | peco | awk '{print $1}')
-	local JSON='{range .spec.containers[*]}{.name}{"\t"}{.image}{"\n"}{end}'
-	local CONTAINER=$(kubectl get pod/$POD -o jsonpath=$JSON | peco | awk '{print $1}')
-	kubectl logs $POD -c $CONTAINER $1
- }
-
-function dlogs {
-	local CONTAINER=$(docker ps -a | peco | awk '{print $1}')
-	docker logs $CONTAINER
- }
-
-function gck {
-	git checkout $(git branch | peco)
+    local POD=$(kubectl get pods | peco | awk '{print $1}')
+    local JSON='{range .spec.containers[*]}{.name}{"\t"}{.image}{"\n"}{end}'
+    local CONTAINER=$(kubectl get pod/$POD -o jsonpath=$JSON | peco | awk '{print $1}')
+    kubectl logs $POD -c $CONTAINER $1
 }
 
-# Load local configuration
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+function dlogs {
+    local CONTAINER=$(docker ps -a | peco | awk '{print $1}')
+    docker logs $CONTAINER
+}
 
-# Java home for asdf
-. ~/.asdf/plugins/java/set-java-home.zsh
+function gck {
+    git checkout $(git branch | peco)
+}
+
+# ASDF setup
+source ~/.asdf/asdf.sh
+
+JAVA_HOME_ASDF="~/.asdf/plugins/java/set-java-home.zsh"
+[ -f $JAVA_HOME_ASDF ] &&  source $JAVA_HOME_ASDF
+
+alias gck='git fetch && git checkout -b $(git branch -a | peco | sed "s/remotes\/origin\///")'
 
 # Rust installation
 export PATH=$PATH:$HOME/.cargo/bin
+
+[ -f $HOME/.fzf/bin ] && export PATH=$PATH:$HOME/.fzf/bin
+
+# Load local configuration
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
