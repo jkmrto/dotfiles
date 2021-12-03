@@ -127,7 +127,8 @@ set splitright
 :tnoremap <Esc> <C-\><C-n>
 
 "FZF
-nnoremap <leader>p :<C-u>FZF<CR>
+nnoremap <leader>p :<C-u>Files<CR>
+command! -bang GFiles call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
 
 " Number on the left by default
 :set number
@@ -249,6 +250,8 @@ let g:ale_fixers = {
 "\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 " \ 'html': ['html-beautify'],
 
+let g:ale_javascript_prettier_options = '--print-width=80'
+
 
 " Java linter
 let g:ale_linters.java = ["javalsp"]
@@ -346,10 +349,12 @@ EOF
 nnoremap <silent>gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>f <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>
-nnoremap <leader>c <cmd>lua vim.lsp.buf.completion()<CR>
 
 
-au FileType eelixir nnoremap <leader>f :silent %!prettier --print-width=120 --stdin-filepath --html-whitespace-sensitivity=strict %<CR>
+
+au FileType eelixir nnoremap <leader>f :silent %!prettier --print-width=120 --stdin-filepath  %<CR>
+
+au FileType scss nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
 
 
 " Trouble keybindings
@@ -359,3 +364,7 @@ nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
+" format on save
+autocmd BufWritePre *.ex lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)
