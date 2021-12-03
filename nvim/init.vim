@@ -63,17 +63,29 @@ call plug#begin('~/.vim/plugged')
 	Plug 'folke/trouble.nvim'
 call plug#end()
 
-
-"on_attach=require'completion'.on_attach,
 lua << EOF
-require'lspconfig'.elixirls.setup{
-	cmd = { ".elixir_ls/rel/language_server.sh" },
-  settings = {
-     elixirLS = {
-       dialyzerEnabled = false;
-     }
-   }
-}
+	local lsp = require'lspconfig'
+	local comp = require'completion'
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+	lsp.elixirls.setup {
+		cmd = { ".elixir_ls/rel/language_server.sh" },
+			settings = {
+ 		 	   elixirLS = {
+ 		 	     dialyzerEnabled = false;
+				}
+			}
+	}
+	lsp.cssls.setup {
+		capabilities = capabilities,
+		on_attach = comp.on_attach
+	}
+	lsp.html.setup {
+		filetypes = { "html", "eex" }
+	}
+EOF
+
 EOF
 
 " Setup for vim files"
