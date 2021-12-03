@@ -70,9 +70,18 @@ JAVA_HOME_ASDF="~/.asdf/plugins/java/set-java-home.zsh"
 alias gck='git fetch && git checkout -b $(git branch -a | peco | sed "s/remotes\/origin\///")'
 
 # Rust installation
-export PATH=$PATH:$HOME/.cargo/bin
+# export PATH=$PATH:$HOME/.cargo/bin
 
 [ -f $HOME/.fzf/bin ] && export PATH=$PATH:$HOME/.fzf/bin
+
+function gsina {
+  git status --porcelain \
+  | awk '{ if (substr($0, 0, 2) ~ /^[ ?].$/) print $0 }' \
+  | peco \
+  | awk '{ print "'`git rev-parse --show-toplevel`'/"$2 }'
+}
+
+# export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 
 # Load local configuration
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

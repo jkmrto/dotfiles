@@ -22,17 +22,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'ElmCast/elm-vim'
   Plug 'jparise/vim-graphql'
   Plug 'gisphm/vim-gitignore'
+
+	"Elm
+  Plug 'ElmCast/elm-vim'
+
+	"Elixir
+	Plug 'elixir-editors/vim-elixir'
 
 	"Go
 	Plug 'fatih/vim-go', {  'tag': 'v1.22', 'do': ':GoUpdateBinaries' }
   "Plug 'fatih/vim-go'
-
-  " Elixir
-  Plug 'slashmili/alchemist.vim'
-  Plug 'elixir-editors/vim-elixir'
 
   " Typescript
   Plug 'leafgarland/typescript-vim'
@@ -52,17 +53,34 @@ call plug#begin('~/.vim/plugged')
 	" Go to repository line
 	Plug 'ruanyl/vim-gh-line'
 
-   "python
+   "Python
 	Plug 'vim-python/python-syntax'
 
 	" Setup for nvim 0.5.0
+	" Collection of common configurations for the Nvim LSP client
 	Plug 'neovim/nvim-lspconfig'
-	"Plug 'nvim-lua/completion-nvim'
+	"A completion engine plugin for neovim written in Lua.
+	Plug 'hrsh7th/nvim-cmp'
+	" LSP completion source for nvim-cmp
+	Plug 'hrsh7th/cmp-nvim-lsp'
+	" Snippet completion source for nvim-cmp
+	Plug 'hrsh7th/cmp-vsnip'
+	" Other usefull completion sources
+	Plug 'hrsh7th/cmp-path'
+	Plug 'hrsh7th/cmp-buffer'
 
-	Plug 'kyazdani42/nvim-web-devicons'
+	" Deprecated completion plugin still used for css
+	Plug 'nvim-lua/completion-nvim'
+
+	"
 	Plug 'folke/trouble.nvim'
+	Plug 'kyazdani42/nvim-web-devicons'
+
+	"Rust
+	Plug 'simrat39/rust-tools.nvim'
 call plug#end()
 
+"on_attach=require'completion'.on_attach,
 lua << EOF
 	local lsp = require'lspconfig'
 	local comp = require'completion'
@@ -86,7 +104,62 @@ lua << EOF
 	}
 EOF
 
+
+lua << EOF
+	require('rust-tools').setup({})
 EOF
+
+
+"
+" Autcomplete configuration
+"
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+
+" Setup Completion
+" See https://github.com/hrsh7th/nvim-cmp#basic-configuration
+lua <<EOF
+local cmp = require'cmp'
+cmp.setup({
+  -- Enable LSP snippets
+  snippet = {
+    expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    -- enable scrolling on docs
+		['<C-k>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-j>'] = cmp.mapping.scroll_docs(4),
+		-- luanch autcomplete on <ctrl-o>
+    ['<C-o>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    })
+  },
+
+	-- disable automatic autocomplete
+	completion = {
+		autocomplete = false
+	},
+
+	-- Installed sources
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+    { name = 'path' },
+    { name = 'buffer' },
+  },
+})
+EOF
+
 
 " Setup for vim files"
 au FileType vim set noexpandtab
@@ -259,10 +332,10 @@ let g:ale_fixers = {
 \ 'rust': ['rustfmt'],
 \ }
 
-"\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 " \ 'html': ['html-beautify'],
 
 let g:ale_javascript_prettier_options = '--print-width=80'
+
 
 
 " Java linter
@@ -345,9 +418,6 @@ nmap <silent> gd <Plug>(coc-definition)
 let g:gruvbox_material_background = 'medium'
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_disable_italic_comment = 0
-
-set completeopt+=noinsert
-
 
 lua << EOF
 local on_attach = function(client, bufnr)
