@@ -145,10 +145,10 @@ cmp.setup({
     })
   },
 
-	-- disable automatic autocomplete
-	completion = {
-		autocomplete = false
-	},
+	-- -- disable automatic autocomplete
+	--completion = {
+	--	autocomplete = false
+	--},
 
 	-- Installed sources
   sources = {
@@ -319,7 +319,6 @@ let g:ale_linters = {
 \	'yaml': ['yamllint'],
 \ 'typescript': ['tsserver'],
 \ 'javascript'  : ['eslint'],
-\ 'json': ['prettier'],
 \ }
 
 let g:ale_fixers = {
@@ -332,11 +331,9 @@ let g:ale_fixers = {
 \ 'rust': ['rustfmt'],
 \ }
 
-" \ 'html': ['html-beautify'],
 
-let g:ale_javascript_prettier_options = '--print-width=80'
-
-
+" Apply ALE fixers on save
+let g:ale_fix_on_save = 0
 
 " Java linter
 let g:ale_linters.java = ["javalsp"]
@@ -368,7 +365,7 @@ endif
 " Commented to try out the lsp integrated
 " Elixir ALE setup
 " let g:ale_linters.elixir = ['elixir-ls' ]
-let g:ale_linters.elixir = []
+"  let g:ale_linters.elixir = []
 " let g:ale_fixers.elixir = [ 'mix_format' ]
 " let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
 " let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
@@ -389,17 +386,10 @@ nnoremap <Leader>is :Gstatus<CR>
 nnoremap <Leader>id :Gdiffsplit<CR>
 nnoremap <Leader>ib :Git blame<CR>
 
-" Faster save
-nnoremap <Leader>w :w<CR>
 " Vim Markdown
 "
 " https://github.com/JamshedVesuna/vim-markdown-preview#requirements
 "let vim_markdown_preview_github=1
-
-" Load local Vim setup
-if filereadable("/Users/jkrmto-paack/.config/nvim/local.vim")
-	source /Users/jkrmto-paack/.config/nvim/local.vim
-endif
 
 " Custom tab for html
 au FileType html set noexpandtab
@@ -433,10 +423,27 @@ nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>f <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>
 
 
+function FormatHeex()
+	execute("!htmlbeautifier %")
+	execute("edit!")
+endfunction
 
-au FileType eelixir nnoremap <leader>f :silent %!prettier --print-width=120 --stdin-filepath  %<CR>
+function FormatEex()
+	execute("%!prettier --stdin-filepath %")
+endfunction
 
-au FileType scss nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
+au FileType eelixir nnoremap <leader>fp :silent call FormatEex() <CR>
+
+au FileType eelixir nnoremap <leader>fh :silent call FormatHeex() <CR>
+
+au FileType scss nnoremap <leader>fp :silent %!prettier --stdin-filepath %<CR>
+
+
+" Execute format heex on save.
+" Avoid confirmation message with ':silent'
+" au BufWritePost *.html.heex :silent call  FormatHeex()
+" au BufWritePost *.html.eex :silent call FormatEex()
+
 
 
 " Trouble keybindings
@@ -449,4 +456,4 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " format on save
 autocmd BufWritePre *.ex lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)º
