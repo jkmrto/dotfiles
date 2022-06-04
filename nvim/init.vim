@@ -169,6 +169,7 @@ au FileType vim set shiftwidth=2
 au FileType vim set softtabstop=2
 au FileType vim set tabstop=2
 
+"colorscheme setup
 colorscheme gruvbox
 let g:gruvbox_material_background = 'medium'
 let g:gruvbox_material_enable_italic = 1
