@@ -104,8 +104,8 @@ lua << EOF
 	lsp.html.setup {
 		filetypes = { "html", "eex" }
 	}
+	lsp.vimls.setup{}	
 EOF
-
 
 lua << EOF
 	require('rust-tools').setup({})
