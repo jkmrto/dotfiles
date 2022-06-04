@@ -170,6 +170,9 @@ au FileType vim set softtabstop=2
 au FileType vim set tabstop=2
 
 colorscheme gruvbox
+let g:gruvbox_material_background = 'medium'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_disable_italic_comment = 0
 
 " Set :E as :Explore
 cabbrev E Explore
@@ -178,7 +181,8 @@ cabbrev E Explore
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
-noremap <leader>ag :Ag <C-r>=expand('<cword>')<CR><CR>
+noremap <leader>ag :Ag <C-r><C-w><CR>
+noremap <leader>ff :<C-U>Files<CR>=expand('<cword>')
 
 "Open nvim config file on current buffer
 imap <c-o> <c-x><c-o><c-p>
@@ -214,8 +218,8 @@ set splitright
 :tnoremap <Esc> <C-\><C-n>
 
 "FZF
-nnoremap <leader>p :<C-u>Files<CR>
-command! -bang GFiles call fzf#vim#gitfiles('', fzf#vim#with_preview('right'))
+nnoremap <leader>p :<C-u>GFiles<CR>
+
 
 " Number on the left by default
 :set number
@@ -226,6 +230,12 @@ au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
 au FileType javascript set tabstop=2
 
+
+" tab width of 2"
+au FileType *css set noexpandtab
+au FileType *css set shiftwidth=2
+au FileType *css set softtabstop=2
+au FileType *css set tabstop=2
 
 "VIM-Go Setup"
 
@@ -294,7 +304,6 @@ let g:ale_open_list = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
 
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
@@ -331,11 +340,11 @@ let g:ale_fixers = {
 \ 'jsx': ['prettier'],
 \ 'javascript': ['prettier'],
 \ 'rust': ['rustfmt'],
+\ 'eelixir': ['remove_trailing_lines', 'trim_whitespace'],
 \ }
 
-
 " Apply ALE fixers on save
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 
 " Java linter
 let g:ale_linters.java = ["javalsp"]
@@ -364,22 +373,9 @@ if filereadable("mix.exs")
 	endif
 endif
 
-" Commented to try out the lsp integrated
-" Elixir ALE setup
-" let g:ale_linters.elixir = ['elixir-ls' ]
-"  let g:ale_linters.elixir = []
-" let g:ale_fixers.elixir = [ 'mix_format' ]
-" let g:ale_elixir_elixir_ls_release = eval("getcwd()") . "/.elixir_ls/rel"
-" let g:ale_elixir_elixir_ls_config = { 'elixirLS': { 'dialyzerEnabled': v:false } }
-"autocmd FileType elixir,eelixir nnoremap gd :ALEGoToDefinition<CR>
-"autocmd FileType elixir nnoremap <leader>ah :ALEHover<CR>
-
 " add yaml stuffs
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Ali: to indent json files on save
-""autocmd FileType json autocmd BufWritePre <buffer> :%!jq .
 
 " VimFugitive
 
@@ -407,10 +403,6 @@ autocmd BufNewFile,BufRead *.jsx :set filetype=javascript
 
 nmap <silent> gd <Plug>(coc-definition)
 
-let g:gruvbox_material_background = 'medium'
-let g:gruvbox_material_enable_italic = 1
-let g:gruvbox_material_disable_italic_comment = 0
-
 lua << EOF
 local on_attach = function(client, bufnr)
 buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -425,20 +417,22 @@ nnoremap <leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>f <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>
 
 
+"execute("edit!")
 function FormatHeex()
 	execute("!htmlbeautifier %")
-	execute("edit!")
 endfunction
 
 function FormatEex()
-	execute("%!prettier --stdin-filepath %")
+	execute("%!prettier --print-width=120 --stdin-filepath %")
 endfunction
 
 au FileType eelixir nnoremap <leader>fp :silent call FormatEex() <CR>
 
+au FileType html nnoremap <leader>fp :silent call FormatEex() <CR>
+
 au FileType eelixir nnoremap <leader>fh :silent call FormatHeex() <CR>
 
-au FileType scss nnoremap <leader>fp :silent %!prettier --stdin-filepath %<CR>
+au FileType scss nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
 
 
 " Execute format heex on save.
@@ -458,4 +452,16 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " format on save
 autocmd BufWritePre *.ex lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)º
+autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)
+
+function GetVisualSelection()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - 2]
+		let lines[0] = lines[0][column_start - 1:]
+		return join(lines, "\n")
+endfunction
