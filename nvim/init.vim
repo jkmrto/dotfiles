@@ -25,6 +25,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'jparise/vim-graphql'
   Plug 'gisphm/vim-gitignore'
 
+	Plug 'chr4/nginx.vim'
+
 	"Elm
   Plug 'ElmCast/elm-vim'
 
