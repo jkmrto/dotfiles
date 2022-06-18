@@ -51,3 +51,5 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 [ -f ~/zsh/docker.zsh ] && source ~/zsh/docker.zsh
 [ -f ~/zsh/fzf.zsh ] && source ~/zsh/fzf.zsh
 [ -f ~/zsh/git.zsh ] && source ~/zsh/git.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
