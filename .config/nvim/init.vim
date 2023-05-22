@@ -1,97 +1,6 @@
-" vim-plug autoinstall
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
-  Plug 'airblade/vim-gitgutter'
-	Plug 'dense-analysis/ale'
-
-  Plug 'jamshedvesuna/vim-markdown-preview'
-  Plug 'junegunn/fzf', { 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'mhinz/vim-startify'
-  Plug 'mrk21/yaml-vim'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-surround'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'jparise/vim-graphql'
-  Plug 'gisphm/vim-gitignore'
-
-	"Colorschemes
-  Plug 'flazz/vim-colorschemes'
-	Plug 'EdenEast/nightfox.nvim' 
-
-	"Nginx
-	Plug 'chr4/nginx.vim'
-
-	"Elm
-  Plug 'ElmCast/elm-vim'
-
-	"Elixir
-	Plug 'elixir-editors/vim-elixir'
-
-	"Go
-	Plug 'fatih/vim-go', {  'tag': 'v1.22', 'do': ':GoUpdateBinaries' }
-  "Plug 'fatih/vim-go'
-
-  " Typescript
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-
-  "Javascript
-  Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
-
-  "Ruby
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'tpope/vim-rails'
-
-  "scala
-	Plug 'derekwyatt/vim-scala'
-
-	" Go to repository line
-	Plug 'ruanyl/vim-gh-line'
-
-   "Python
-	Plug 'vim-python/python-syntax'
-
-	" Collection of common configurations for the Nvim LSP client
-	Plug 'neovim/nvim-lspconfig'
-	"A completion engine plugin for neovim written in Lua.
-	Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-	" LSP completion source for nvim-cmp
-	Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-	" Snippet completion source for nvim-cmp
-	Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
-	" Other usefull completion sources
-	Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-	Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
-
-	" Deprecated completion plugin still used for css
-	Plug 'nvim-lua/completion-nvim'
-
-	"
-	Plug 'folke/trouble.nvim', { 'branch': 'main' }
-	Plug 'kyazdani42/nvim-web-devicons'
-
-	"Rust
-	Plug 'simrat39/rust-tools.nvim'
-
-	"Treesitter
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-	Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-call plug#end()
-
 lua << EOF
 	-- modules at lua/
+	require('packer-setup')
 	require('lsp')
 	require('cs-nightfox')
 	require('tree-sitter')
@@ -99,7 +8,7 @@ EOF
 
 
 lua << EOF
-	require('rust-tools').setup({})
+	-- require('rust-tools').setup({})
 EOF
 
 let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
