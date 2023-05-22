@@ -53,3 +53,6 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 [ -f ~/zsh/git.zsh ] && source ~/zsh/git.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FLYCTL_INSTALL="/home/jkmrto/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
