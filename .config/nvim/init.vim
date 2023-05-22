@@ -195,20 +195,24 @@ nnoremap <leader>f <cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>
 
 "execute("edit!")
 function! FormatHeex()
-	execute("!htmlbeautifier %")
+	execute("!mix format %")
 endfunction
 
 function! FormatEex()
 	execute("%!prettier --print-width=120 --stdin-filepath %")
 endfunction
 
-au FileType eelixir nnoremap <leader>fp :silent call FormatEex() <CR>
+autocmd FileType eelixir nnoremap <leader>fp :silent call FormatEex() <CR>
 
-au FileType html nnoremap <leader>fp :silent call FormatEex() <CR>
+autocmd FileType html nnoremap <leader>fp :silent call FormatEex() <CR>
 
-au FileType eelixir nnoremap <leader>fh :silent call FormatHeex() <CR>
+autocmd FileType eelixir nnoremap <leader>fh :silent call FormatHeex() <CR>
 
-au FileType scss nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
+autocmd FileType elixir nnoremap <leader>f :silent call FormatHeex() <CR>
+
+autocmd FileType scss nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
+
+autocmd FileType js nnoremap <leader>f :silent %!prettier --stdin-filepath %<CR>
 
 
 " Execute format heex on save.
