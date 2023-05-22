@@ -52,7 +52,12 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 [ -f ~/zsh/fzf.zsh ] && source ~/zsh/fzf.zsh
 [ -f ~/zsh/git.zsh ] && source ~/zsh/git.zsh
 
+# TODO: clone fzf if folder still not setup 
+export PATH=$PATH:~/.fzf/bin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export FLYCTL_INSTALL="/home/jkmrto/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+alias luamake=/home/jkmrto/.config/lsp/lua-language-server/3rd/luamake/luamake
+export PATH="${HOME}/.config/lsp/lua-language-server/bin:${PATH}"
