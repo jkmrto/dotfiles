@@ -11,6 +11,8 @@ lua << EOF
 	-- require('rust-tools').setup({})
 EOF
 
+
+
 let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 colorscheme catppuccin
 "colorscheme nightfox
@@ -143,21 +145,8 @@ nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " format on save
-autocmd BufWritePre *.ex lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)
-
-function! GetVisualSelection()
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - 2]
-		let lines[0] = lines[0][column_start - 1:]
-		return join(lines, "\n")
-endfunction
-
-
+" autocmd BufWritePre *.ex lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.exs lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.heex lua vim.lsp.buf.formatting_sync(nil, 100)
 
 autocmd BufNewFile,BufRead *.heex :set filetype=eelixir
