@@ -86,6 +86,8 @@ call plug#begin('~/.vim/plugged')
 
 	"Treesitter
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+	Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 call plug#end()
 
 lua << EOF
@@ -100,7 +102,9 @@ lua << EOF
 	require('rust-tools').setup({})
 EOF
 
-colorscheme nightfox
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
+"colorscheme nightfox
 
 
 " Set :E as :Explore
