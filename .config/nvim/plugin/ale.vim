@@ -36,7 +36,6 @@ let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \	'Dockerfile': ['hadolint'],
 \	'elm': ['elm_ls'],
-\	'go': ['go build', 'go vet', 'golint'],
 \	'graphql': ['gqlint'],
 \	'yaml': ['yamllint'],
 \ 'typescript': ['tsserver'],

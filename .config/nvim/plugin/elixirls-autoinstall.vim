@@ -1,7 +1,7 @@
 " Elixir-ls linter setup
 function! InstallElixirLs()
 	if isdirectory('.elixir_ls') | execute("!rm -rf .elixir_ls") | endif
-	execute("!git clone https://github.com/JakeBecker/elixir-ls.git .elixir_ls")
+	execute("!git clone https://github.com/elixir-lsp/elixir-ls.git .elixir_ls")
 	execute("!cd .elixir_ls; mix deps.get; mix compile")
 	execute("!cd .elixir_ls; mix elixir_ls.release -o rel")
 endfunction
