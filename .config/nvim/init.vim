@@ -162,8 +162,11 @@ nnoremap <leader>ps :<C-u>GFiles?<CR>
 
 " Custom VimFugitive mapping
 nnoremap <Leader>is :Gstatus<CR>
-nnoremap <Leader>id :Gdiffsplit<CR>
 nnoremap <Leader>ib :Git blame<CR>
+nnoremap <Leader>id :Git diff %<CR>
+nnoremap <Leader>iu :Git restore --staged %<CR>
+
+nnoremap <Leader>ia :Git add %<CR>
 
 " Vim Markdown
 "
