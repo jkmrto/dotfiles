@@ -44,3 +44,7 @@ require'lspconfig'.lua_ls.setup {
     },
   },
 }
+
+vim.api.nvim_exec([[
+  autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 100)
+]], false)
