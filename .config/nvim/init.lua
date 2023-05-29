@@ -56,3 +56,5 @@ vim.api.nvim_set_keymap('n', '<Leader>ia', ':Git add %<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>', { noremap = true })
+
+vim.api.nvim_set_keymap('n', '<leader>ia', '<cmd>ChatGPT<CR>', { noremap = true })

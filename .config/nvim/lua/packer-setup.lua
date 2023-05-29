@@ -67,7 +67,19 @@ packer.startup(function()
 
 	-- TODO: double check if this plugin is used for something
 	use 'kyazdani42/nvim-web-devicons'
-end
-)
+
+	-- setup chatgpt
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("chatgpt").setup(defaults)
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim"
+		}
+	})
+end)
 
 print("Packer loaded")
