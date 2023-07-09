@@ -19,6 +19,9 @@ vim.api.nvim_set_keymap('n', '<leader>pp', ':<C-u>GFiles<CR>', { noremap = true 
 vim.api.nvim_set_keymap('n', '<leader>ps', ':<C-u>GFiles?<CR>', { noremap = true })
 -- search for files (this command is not working)
 -- vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua vim.cmd(':Files ' .. vim.fn.expand('<cword>'))<CR>", { noremap = true, silent = true })
+vim.env["FZF_DEFAULT_OPTS"] = "--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+
+
 
 --Navigate through vim configuration
 vim.api.nvim_set_keymap('n', '<leader>vv', ':e ~/.config/nvim/init.lua<CR>', { noremap = true })

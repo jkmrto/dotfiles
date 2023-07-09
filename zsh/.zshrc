@@ -61,3 +61,7 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 alias luamake=/home/jkmrto/.config/lsp/lua-language-server/3rd/luamake/luamake
 export PATH="${HOME}/.config/lsp/lua-language-server/bin:${PATH}"
+
+# bat -> https://github.com/sharkdp/bat#customization
+# list availables themes with `bat --list-themes`
+export BAT_THEME="TwoDark"
