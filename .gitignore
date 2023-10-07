@@ -2,3 +2,6 @@ assets/*/node_modules/
 .elixir_ls/
 .elixir_ls
 .cfg
+.DS_Store
+*private.pem
+*public.pem

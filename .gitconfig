@@ -1,0 +1,9 @@
+[user]
+	name = Juan Carlos
+	email = jkmrto@gmail.com
+
+[include]
+	path = ~/.gitconfig_remote
+
+[core]
+	excludesFile = ~/.gitignore
