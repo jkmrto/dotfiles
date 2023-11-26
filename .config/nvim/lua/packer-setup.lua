@@ -48,6 +48,8 @@ packer.startup(function()
 
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
+	use { "tpope/vim-projectionist" }
+
 	-- Collection of common configurations for the Nvim LSP client
 	use 'neovim/nvim-lspconfig'
 	-- A completion engine plugin for neovim written in Lua.
