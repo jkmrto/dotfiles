@@ -1,25 +1,59 @@
 -- on_attach=require'completion'.on_attach,
-local lsp = require 'lspconfig'
+local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+local home = os.getenv( "HOME" )
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lsp.elixirls.setup {
-	capabilities = capabilities,
-	cmd = { ".elixir_ls/rel/language_server.sh" },
-	settings = {
-		elixirLS = {
-			dialyzerEnabled = false,
-		}
-	}
+-- lspconfig.elixirls.setup {
+-- 	capabilities = capabilities,
+-- 	cmd = { "/Users/juancarlos/elixir_ls/jakebecker.elixir-ls-0.17.8/elixir-ls-release/language_server.sh" },
+-- 	settings = {
+-- 		elixirLS = {
+-- 			dialyzerEnabled = false,
+-- 			fetchDeps = false,
+-- 			enableTestLenses = false,
+-- 			suggestSpecs = false,
+-- 		}
+-- 	}
+-- }
+
+
+print("This is the expected path to Lexical LS: " .. home .. "/language-servers/lexical/_build/dev/package/lexical/bin/start_lexical.sh" )
+
+local lexical_config = {
+  filetypes = { "elixir", "eelixir", "heex" },
+  cmd = {home .. "/language-servers/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  settings = {},
 }
-lsp.cssls.setup {
+
+if not configs.lexical then
+  configs.lexical = {
+    default_config = {
+      filetypes = lexical_config.filetypes,
+      cmd = lexical_config.cmd,
+      root_dir = function(fname)
+        return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+      end,
+      -- optional settings
+      settings = lexical_config.settings,
+    },
+  }
+end
+
+lspconfig.lexical.setup({})
+
+lspconfig.cssls.setup {
 	--	capabilities = capabilities,
 	-- on_attach = comp.on_attach
 }
-lsp.html.setup {
+
+lspconfig.html.setup {
 	filetypes = { "html", "eex" }
 }
-lsp.vimls.setup {}
+
+lspconfig.vimls.setup {}
 
 
 require 'lspconfig'.lua_ls.setup {
