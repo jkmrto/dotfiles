@@ -2,8 +2,16 @@
 	name = Juan Carlos
 	email = jkmrto@gmail.com
 
+[core]
+	excludesFile = ~/.gitignore
+    	editor = nvr
+
+# Include only if exists
 [include]
 	path = ~/.gitconfig_remote
 
-[core]
-	excludesFile = ~/.gitignore
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
