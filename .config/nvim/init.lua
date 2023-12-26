@@ -5,6 +5,7 @@ require('tree-sitter')
 require('trouble-setup')
 require('colorscheme-setup')
 require('projectionist-setup')
+require('rust-tools-setup')
 
 -- require('rust-tools').setup({})
 vim.api.nvim_set_keymap('n', '<Space>', '<Nop>', { silent = true })
