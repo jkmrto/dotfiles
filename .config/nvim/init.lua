@@ -1,5 +1,6 @@
 require('packer-setup')
 require('lsp')
+require('lsp-diagnostics')
 require('cs-nightfox')
 require('tree-sitter')
 require('trouble-setup')
