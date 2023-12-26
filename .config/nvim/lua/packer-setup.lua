@@ -53,22 +53,29 @@ packer.startup(function()
 	-- Collection of common configurations for the Nvim LSP client
 	use 'neovim/nvim-lspconfig'
 	-- A completion engine plugin for neovim written in Lua.
-	use { 'hrsh7th/nvim-cmp', branch = 'main' }
-	-- LSP completion source for nvim-cmp
-	use { 'hrsh7th/cmp-nvim-lsp', branch = 'main' }
-	-- Snippet completion source for nvim-cmp
 	use { 'hrsh7th/cmp-vsnip', branch = 'main' }
+    	use 'hrsh7th/vim-vsnip' 
+   	 
+	-- LSP completion source for nvim-cmp
+	use { 'hrsh7th/nvim-cmp', branch = 'main' }
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-nvim-lua'
 	-- Other usefull completion sources
 	use { 'hrsh7th/cmp-path', branch = 'main' }
 	use { 'hrsh7th/cmp-buffer', branch = 'main' }
 
+    	use 'hrsh7th/cmp-nvim-lsp-signature-help'
+
 	-- Deprecated completion plugin still used for css
 	use 'nvim-lua/completion-nvim'
 
-	use { 'folke/trouble.nvim', branch = 'main' }
 
-	-- TODO: double check if this plugin is used for something
-	use 'kyazdani42/nvim-web-devicons'
+	use({
+		'folke/trouble.nvim',
+		requires = {
+			'kyazdani42/nvim-web-devicons',
+		}
+	}) 
 
 	-- setup chatgpt
 	use({
