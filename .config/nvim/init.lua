@@ -28,6 +28,8 @@ vim.env["FZF_DEFAULT_OPTS"] = "--ansi --preview-window 'right:60%' --layout reve
 
 --Navigate through vim configuration
 vim.api.nvim_set_keymap('n', '<leader>vv', ':e ~/.config/nvim/init.lua<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ve', ':e ~/.iex.exs<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>vp', ':e ~/.config/nvim/lua/packer-setup.lua<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>vs', ':source %<CR>', { noremap = true })
 
 --Split buffers and terminal
@@ -77,12 +79,6 @@ vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', '<Leader>ee', ':bd!<CR> :Explore!<CR>', { noremap = true })
 
 
-
 --vim.api.nvim_set_keymap('n', 'cc', '<cmd>"*<CR>', { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<C-y>', '"y*', { noremap = true })
-
-    },
-  },
-})
-
