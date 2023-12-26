@@ -4,17 +4,26 @@ require 'nvim-treesitter.configs'.setup {
 	},
 	highlight = {
 		enable = true,
+		additional_vim_regex_highlighting=false,
 		disable = {},
 	},
 	indent = {
 		enable = true,
 		disable = {},
 	},
+  auto_install = true,
 	ensure_installed = {
 		"elixir",
 		"vim",
-		"lua"
+		"lua",
+		"rust",
+		"toml"
 	},
+	rainbow = {
+    	enable = true,
+    	extended_mode = true,
+    	max_file_lines = nil,
+  }
 }
 
 

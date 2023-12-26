@@ -17,6 +17,7 @@ packer.init({
 --- startup and add configure plugins
 packer.startup(function()
 	local use = use
+
 	use 'airblade/vim-gitgutter'
 	use 'dense-analysis/ale'
 
