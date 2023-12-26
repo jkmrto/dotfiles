@@ -82,6 +82,10 @@ packer.startup(function()
 			"nvim-telescope/telescope.nvim"
 		}
 	})
+
+	--mason setup
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
 end)
 
 print("Packer loaded")
