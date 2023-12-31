@@ -1,24 +1,13 @@
-" Autcomplete configuration
-"
-" Set completeopt to have a better completion experience
-" :help completeopt
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-
-" Setup Completion
-" See https://github.com/hrsh7th/nvim-cmp#basic-configuration
-lua <<EOF
-
 -- Completion Plugin Setup
 local cmp = require'cmp'
+
 cmp.setup({
   -- Enable LSP snippets
-  -- snippet = {
-  --   expand = function(args)
-  --       vim.fn["vsnip#anonymous"](args.body)
-  --   end,
-  -- },
+ snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -36,6 +25,7 @@ cmp.setup({
   },
   -- Installed sources:
   sources = {
+    { name = 'cmp-vsnip' },
     { name = 'path' },                              -- file paths
     { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
     { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
@@ -62,8 +52,3 @@ cmp.setup({
       end,
   },
 })
-
-
-EOF
-
-echo "Autocompletion loaded"

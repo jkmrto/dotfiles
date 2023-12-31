@@ -53,9 +53,6 @@ packer.startup(function()
 
 	-- Collection of common configurations for the Nvim LSP client
 	use 'neovim/nvim-lspconfig'
-	-- A completion engine plugin for neovim written in Lua.
-	use { 'hrsh7th/cmp-vsnip', branch = 'main' }
-    	use 'hrsh7th/vim-vsnip' 
    	 
 	-- LSP completion source for nvim-cmp
 	use { 'hrsh7th/nvim-cmp', branch = 'main' }
@@ -94,6 +91,13 @@ packer.startup(function()
 	--mason setup
 	use 'williamboman/mason.nvim'
 	use 'williamboman/mason-lspconfig.nvim'
+
+	--snippets 
+	-- A completion engine plugin for neovim written in Lua.
+	use { 'hrsh7th/cmp-vsnip', branch = 'main' }
+	use 'hrsh7th/vim-vsnip'
+	
+	use "L3MON4D3/LuaSnip"
 end)
 
 print("Packer loaded")
