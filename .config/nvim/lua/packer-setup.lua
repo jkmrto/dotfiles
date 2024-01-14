@@ -98,6 +98,15 @@ packer.startup(function()
 	use 'hrsh7th/vim-vsnip'
 	
 	use "L3MON4D3/LuaSnip"
+
+	use 'mhinz/vim-startify'
+
+	use({
+	     "iamcco/markdown-preview.nvim",
+	         run = function() vim.fn["mkdp#util#install"]() end,
+	         })
+	
+
 end)
 
 print("Packer loaded")

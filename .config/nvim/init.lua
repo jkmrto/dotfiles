@@ -80,6 +80,5 @@ vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', '<Leader>ee', ':bd!<CR> :Explore!<CR>', { noremap = true })
 
 
---vim.api.nvim_set_keymap('n', 'cc', '<cmd>"*<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<C-y>', '"y*', { noremap = true })
+-- Markdown preview setup
+vim.api.nvim_set_keymap('n', '<Leader>mv', ':MarkdownPreview<CR>', { noremap = true })
