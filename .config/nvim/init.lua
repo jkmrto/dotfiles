@@ -1,4 +1,8 @@
-require('packer-setup')
+-- mapleader is required for lazy (plugin manager)
+vim.api.nvim_set_keymap('n', '<Space>', '<Nop>', { silent = true })
+vim.g.mapleader = " "
+
+require('lazy-setup')
 require('lsp')
 require('lsp-diagnostics')
 require('cs-nightfox')
@@ -10,8 +14,6 @@ require('rust-tools-setup')
 require('cmp-snippets-setup')
 
 -- require('rust-tools').setup({})
-vim.api.nvim_set_keymap('n', '<Space>', '<Nop>', { silent = true })
-vim.g.mapleader = " "
 
 --Set :E as :Explore
 vim.cmd('cabbrev E Explore')
