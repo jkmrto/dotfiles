@@ -9,9 +9,9 @@ local palettes = {
     --
     -- Defining just a color defines it's base color
     green = "#AFE1AF",
-  }
+  },
 }
 
-require("nightfox").setup({ palettes = palettes})
+require("nightfox").setup({ palettes = palettes })
 
 print("Colorschema nightfox loaded")

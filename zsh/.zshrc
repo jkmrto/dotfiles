@@ -65,3 +65,5 @@ export PATH="${HOME}/.config/lsp/lua-language-server/bin:${PATH}"
 # bat -> https://github.com/sharkdp/bat#customization
 # list availables themes with `bat --list-themes`
 export BAT_THEME="TwoDark"
+
+alias nvim_config="nvim ~/.config/nvim"
